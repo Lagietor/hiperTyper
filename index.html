@@ -10,12 +10,17 @@
     <script src="./src/controller/test.js"></script>
 
     <!-- Here are links to CSS files -->
-    <link rel="stylesheet" href="./src/css/example.css">
+    <link rel="stylesheet" href="./src/css/menu.css">
 </head>
 <body>
-
-    <button class="btn btn-primary" id="test">DUPA</button>
-    <p id="answer"></p>
-
+    <video autoplay loop muted id="bg-video">
+        <source src="./src/assets/particles.mp4" type="video/mp4">
+    </video>
+    <div class="container">
+        <div class="menu-block">
+            <p class="text-center text-light menu-title">HiperTyper</p>
+            <p class="text-center text-light menu-play" style="margin-top: 10%">Press any key to start</p>
+        </div>
+    </div>
 </body>
 </html>
