@@ -1,0 +1,8 @@
+body {
+    background-color: black;
+}
+
+@font-face {
+    font-family: arcade;
+    src: url("../assets/CosmicAlien-V4Ax.ttf") format('truetype');
+}

@@ -7,7 +7,8 @@
     <script src="./src/lib/jquery-3.7.1.min.js"></script>
 
     <!-- Here are links to JS files -->
-    <script src="./src/controller/test.js"></script>
+    <script src="./src/classes/menu/startGame.js"></script>
+    <!-- <script src="./src/controller/test.js"></script> -->
 
     <!-- Here are links to CSS files -->
     <link rel="stylesheet" href="./src/css/menu.css">
@@ -18,9 +19,10 @@
     </video>
     <div class="container">
         <div class="menu-block">
-            <p class="text-center text-light menu-title">HiperTyper</p>
-            <p class="text-center text-light menu-play" style="margin-top: 10%">Press any key to start</p>
+            <p class="text-center text-light menu-title" id="menuTitle">HiperTyper</p>
+            <p class="text-center text-light menu-play" style="margin-top: 10%" id="menuStart">Press any key to start</p>
         </div>
     </div>
+    <div id="game"></div>
 </body>
 </html>
