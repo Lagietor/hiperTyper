@@ -2,20 +2,25 @@ $(document).ready(function() {
     // Time of reappearing animation
     const interval = 1000;
     let textAnimation;
-    let gameRunnig = false;
+    let gameRunning = false;
+
+    // Remove to see menu
+    gameRunning = skipMenu(gameRunning);
 
     textAnimation = animateText(interval);
 
     // Check if the key was pressed
     $(document).keydown(function() {
         // Checks if the game is already running to prevent multiple game starts
-        if (!gameRunnig) {
-            gameRunnig = true;
+        if (!gameRunning) {
+            gameRunning = true;
             startGame(function() {
+                hideMenuElements();
+
                 // Loading the view of the game
                 $('#game').load('./src/view/game.html', function() {
                     // Loading the logic of the game
-                    $.getScript("./src/controller/game.js");
+                    $.getScript("./src/controllers/game.js");
                 });
             });
         }
@@ -43,4 +48,19 @@ function startGame(callback) {
     $("#bg-video").animate({opacity: 0}, 1800, function() {
         callback();
     });
+}
+
+function hideMenuElements() {
+    $("#menu").hide();
+}
+
+// Skips menu screen (dev purpose)
+function skipMenu(gameRunning) {
+    gameRunning = true;
+    hideMenuElements();
+    $('#game').load('./src/view/game.html', function() {
+        $.getScript("./src/controllers/game.js");
+    });
+
+    return gameRunning;
 }

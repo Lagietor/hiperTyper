@@ -8,19 +8,21 @@
 
     <!-- Here are links to JS files -->
     <script src="./src/classes/menu/startGame.js"></script>
-    <!-- <script src="./src/controller/test.js"></script> -->
 
     <!-- Here are links to CSS files -->
     <link rel="stylesheet" href="./src/css/menu.css">
+    <link rel="stylesheet" href="./src/css/game.css">
 </head>
 <body>
-    <video autoplay loop muted id="bg-video">
-        <source src="./src/assets/particles.mp4" type="video/mp4">
-    </video>
-    <div class="container">
-        <div class="menu-block">
-            <p class="text-center text-light menu-title" id="menuTitle">HiperTyper</p>
-            <p class="text-center text-light menu-play" style="margin-top: 10%" id="menuStart">Press any key to start</p>
+    <div id="menu">
+        <video autoplay loop muted id="bg-video">
+            <source src="./src/assets/particles.mp4" type="video/mp4">
+        </video>
+        <div class="container">
+            <div class="menu-block">
+                <p class="text-center text-light menu-title" id="menuTitle">HiperTyper</p>
+                <p class="text-center text-light menu-play" style="margin-top: 10%" id="menuStart">Press any key to start</p>
+            </div>
         </div>
     </div>
     <div id="game"></div>
