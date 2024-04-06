@@ -23,7 +23,7 @@ function displayPopupLetter(letter) {
     popupAnimation(300, 500, 400);
 
     // Play sound
-    playSound("./src/sound/pressKey3.mp3");
+    playSound("./src/sound/voice_sans.mp3");
 }
 
 function popupAnimation(goUpTime, goDownTime, hangTime) {

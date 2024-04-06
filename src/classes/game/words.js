@@ -47,3 +47,22 @@ function assignAttrToWords(words) {
         if (length > 6 && length <= 14) wordGroup["wave"] = 3;
     });
 }
+
+// Displays word
+function displayWord(word, sectionId) {
+    $("#st" + sectionId).text(word);
+    adjustTextSize(sectionId);
+}
+
+// Resize text, not used yet, not tested
+function adjustTextSize(sectionId) {
+    var fontSize = 1.5; // default size
+    var section = $('#s' + sectionId);
+    var text = section.find('.enemy-word');
+
+    while (text[0].scrollWidth > text[0].clientWidth) {
+        fontSize -= 0.1;
+        text.css('font-size', fontSize + 'rem');
+        console.log(text[0].scrollWidth, text[0].scrollWidth);
+    }
+}

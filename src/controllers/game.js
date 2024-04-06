@@ -1,7 +1,7 @@
 $(document).ready(function() {
     let allWords;
 
-    // isReady checks if everything is loaded 
+    // isReady checks if everything is loaded
     // before starting the game
     let isReady = false;
 
@@ -27,12 +27,13 @@ $(document).ready(function() {
         if (!letter) {
             return;
         }
-    
+
         displayPopupLetter(letter);
     });
 
     function run() {
         console.log(allWords);
+        // displayWord("testttttttttttt", 2);
         // Logic of the game...
     }
 })

@@ -18,3 +18,17 @@ body {
     position: absolute;
     bottom: 0;
 }
+
+#game-board {
+    height: 75vh;
+}
+
+.enemy-word {
+    font-family: arcade;
+    font-size: 1.5rem;
+}
+
+.fixed-width-col {
+    width: 12.5%;
+    flex: 0 0 12.5%;
+}
