@@ -56,13 +56,13 @@ function displayWord(word, sectionId) {
 
 // Resize text, not used yet, not tested
 function adjustTextSize(sectionId) {
-    var fontSize = 1.5; // default size
-    var section = $('#s' + sectionId);
-    var text = section.find('.enemy-word');
+    // default size
+    let fontSize = 1.5;
+    let section = $('#s' + sectionId);
+    let text = section.find('.enemy-word');
 
     while (text[0].scrollWidth > text[0].clientWidth) {
         fontSize -= 0.1;
         text.css('font-size', fontSize + 'rem');
-        console.log(text[0].scrollWidth, text[0].scrollWidth);
     }
 }

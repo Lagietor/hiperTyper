@@ -1,5 +1,10 @@
 $(document).ready(function() {
+    let lives = 3;
+    let wave = 1;
+    let score = 0;
+
     let allWords;
+    let sections;
 
     // isReady checks if everything is loaded
     // before starting the game
@@ -7,9 +12,11 @@ $(document).ready(function() {
 
     $.getScript("./src/classes/game/keyPressed.js");
     $.getScript("./src/classes/game/sound.js");
+    $.getScript("./src/classes/game/board.js");
     $.getScript("./src/classes/game/words.js", function() {
         getAllWords(function(words) {
             allWords = words;
+            sections = getSections();
             isReady = true;
 
             // Start the game
@@ -33,7 +40,8 @@ $(document).ready(function() {
 
     function run() {
         console.log(allWords);
-        // displayWord("testttttttttttt", 2);
+        console.log(sections);
+
         // Logic of the game...
     }
 })
