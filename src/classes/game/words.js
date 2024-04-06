@@ -44,6 +44,6 @@ function assignAttrToWords(words) {
         // assign from which wave this word will start appearing
         if (length <= 4) wordGroup["wave"] = 1;
         if (length > 4 && length <= 6) wordGroup["wave"] = 2;
-        if (length > 6 && length >= 14) wordGroup["wave"] = 3;
+        if (length > 6 && length <= 14) wordGroup["wave"] = 3;
     });
 }
