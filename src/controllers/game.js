@@ -13,7 +13,7 @@ $(document).ready(function() {
     $.getScript("./src/classes/game/popupLetter.js");
     $.getScript("./src/classes/game/letterDetection.js");
     $.getScript("./src/classes/game/sound.js");
-    $.getScript("./src/classes/game/board.js");
+    $.getScript("./src/classes/game/sections.js");
     $.getScript("./src/classes/game/words.js", function() {
         getAllWords(function(words) {
             allWords = words;
@@ -37,18 +37,35 @@ $(document).ready(function() {
         }
 
         displayPopupLetter(letter);
+
+        // TODO: Tide this up and add comments
+        // Checking if key pressed matches any inactive first letters
         let correctSections = getCorrectSections(letter);
 
         if (correctSections.length) {
             // Logic of correct key...
+            let correctSectionsId = correctSections.map(correctSection => correctSection.sectionId);
+
+            playSound("./src/sound/correctKey.mp3");
+            activateLetter(correctSectionsId);
+
+            let activedWordsSectionsId = getActivatedWords(correctSectionsId);
+
+            // Check if word is activated
+            if (activeWords.length) {
+                removeWordsFromSection(activedWordsSectionsId);
+            }
         } else {
             // Logic of incorrect key...
+            playSound("./src/sound/badKey.wav");
         }
     });
 
     function run() {
         addWordToSection(1, "dupa", 1);
         addWordToSection(3, "test", 1);
+        addWordToSection(4, "test", 1);
+        addWordToSection(5, "testoo", 1);
         // console.log(allWords);
         // console.log(sections);
         // Logic of the game...

@@ -21,9 +21,6 @@ function displayPopupLetter(letter) {
 
     // Play animation
     popupAnimation(300, 500, 400);
-
-    // Play sound
-    playSound("./src/sound/voice_sans.mp3");
 }
 
 function popupAnimation(goUpTime, goDownTime, hangTime) {

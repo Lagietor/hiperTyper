@@ -28,3 +28,39 @@ function getCorrectSections(key) {
 
     return correctSections;
 }
+
+function activateLetter(sectionsId) {
+    sectionsId.forEach(sectionId => {
+        let isActivated = false;
+
+        sections[sectionId - 1].word.forEach((letterObject, index) => {
+            if (isActivated) {
+                return;
+            }
+
+            let letterKey = Object.keys(letterObject)[0];
+            let letterValue = letterObject[letterKey];
+
+            if (!letterValue) {
+                letterObject[letterKey] = true;
+                $("#" + sectionId + "-" + index).addClass("active");
+                isActivated = true;
+            }
+
+        })
+    })
+}
+
+function getActivatedWords(sectionsId) {
+    let activatedSections = [];
+
+    sectionsId.forEach(sectionId => {
+        let section = sections[sectionId - 1];
+
+        if (section && section.word.every(letterObject => Object.values(letterObject)[0])) {
+            activatedSections.push(sectionId);
+        }
+    });
+
+    return activatedSections;
+}

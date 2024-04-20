@@ -53,11 +53,17 @@ function displayWord(word, sectionId) {
     let html = "";
 
     for (let i = 0; i < word.length; i++) {
-        html += "<span>" + word[i] + "</span>";
+        let letterId = sectionId + "-" + i;
+
+        html += '<span id="' + letterId + '">' + word[i] + '</span>';
     }
 
     $("#st" + sectionId).html(html);
     adjustTextSize(sectionId);
+}
+
+function removeWord(sectionId) {
+    $("#st" + sectionId).html("");
 }
 
 // Resize text, not used yet, not tested
@@ -73,7 +79,7 @@ function adjustTextSize(sectionId) {
     }
 }
 
-// Returns object of letters
+// Returns array of objects of letters
 function splitWord(word) {
     // Modify text to uppercase
     word = word.toUpperCase();

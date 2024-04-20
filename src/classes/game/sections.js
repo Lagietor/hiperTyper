@@ -26,3 +26,10 @@ function addWordToSection(sectionId, word, speed) {
     sections[sectionId - 1].speed = speed;
     displayWord(word, sectionId);
 }
+
+function removeWordsFromSection(sectionsId) {
+    sectionsId.forEach(sectionId => {
+        sections[sectionId - 1].word = [];
+        removeWord(sectionId);
+    });
+}
