@@ -50,7 +50,13 @@ function assignAttrToWords(words) {
 
 // Displays word
 function displayWord(word, sectionId) {
-    $("#st" + sectionId).text(word);
+    let html = "";
+
+    for (let i = 0; i < word.length; i++) {
+        html += "<span>" + word[i] + "</span>";
+    }
+
+    $("#st" + sectionId).html(html);
     adjustTextSize(sectionId);
 }
 
@@ -65,4 +71,18 @@ function adjustTextSize(sectionId) {
         fontSize -= 0.1;
         text.css('font-size', fontSize + 'rem');
     }
+}
+
+// Returns object of letters
+function splitWord(word) {
+    // Modify text to uppercase
+    word = word.toUpperCase();
+    let letters = [];
+
+    for (let i = 0; i < word.length; i++) {
+        let letter = word[i];
+        letters.push({ [letter]: false });
+    }
+
+    return letters;
 }

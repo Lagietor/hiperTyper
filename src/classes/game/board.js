@@ -11,9 +11,18 @@ function getSections() {
         sections.push({
             "sectionId": i + 1,
             "isBusy": false,
-            "speed": 0
+            "word": [],
+            "speed": 0,
         })
     }
 
     return sections;
+}
+
+function addWordToSection(sectionId, word, speed) {
+    let splittedWord = splitWord(word);
+    sections[sectionId - 1].word = splittedWord;
+    sections[sectionId - 1].isBusy = true;
+    sections[sectionId - 1].speed = speed;
+    displayWord(word, sectionId);
 }

@@ -1,16 +1,17 @@
 $(document).ready(function() {
-    let lives = 3;
-    let wave = 1;
-    let score = 0;
+    lives = 3;
+    wave = 1;
+    score = 0;
 
-    let allWords;
-    let sections;
+    allWords = [];
+    sections = [];
 
     // isReady checks if everything is loaded
     // before starting the game
     let isReady = false;
 
-    $.getScript("./src/classes/game/keyPressed.js");
+    $.getScript("./src/classes/game/popupLetter.js");
+    $.getScript("./src/classes/game/letterDetection.js");
     $.getScript("./src/classes/game/sound.js");
     $.getScript("./src/classes/game/board.js");
     $.getScript("./src/classes/game/words.js", function() {
@@ -36,12 +37,20 @@ $(document).ready(function() {
         }
 
         displayPopupLetter(letter);
+        let correctSections = getCorrectSections(letter);
+
+        if (correctSections.length) {
+            // Logic of correct key...
+        } else {
+            // Logic of incorrect key...
+        }
     });
 
     function run() {
-        console.log(allWords);
-        console.log(sections);
-
+        addWordToSection(1, "dupa", 1);
+        addWordToSection(3, "test", 1);
+        // console.log(allWords);
+        // console.log(sections);
         // Logic of the game...
     }
 })

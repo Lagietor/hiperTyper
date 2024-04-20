@@ -52,3 +52,5 @@ function popupAnimation(goUpTime, goDownTime, hangTime) {
         }
     });
 }
+
+
