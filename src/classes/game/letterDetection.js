@@ -29,7 +29,8 @@ function getCorrectSections(key) {
     return correctSections;
 }
 
-function activateLetter(sectionsId) {
+// Set true to letters that were matched
+function activateLetters(sectionsId) {
     sectionsId.forEach(sectionId => {
         let isActivated = false;
 
@@ -51,16 +52,17 @@ function activateLetter(sectionsId) {
     })
 }
 
-function getActivatedWords(sectionsId) {
-    let activatedSections = [];
+// Get section with activated words
+function getSectionsIdOfActivatedWords(sectionsId) {
+    let activatedSectionsId = [];
 
     sectionsId.forEach(sectionId => {
         let section = sections[sectionId - 1];
 
         if (section && section.word.every(letterObject => Object.values(letterObject)[0])) {
-            activatedSections.push(sectionId);
+            activatedSectionsId.push(sectionId);
         }
     });
 
-    return activatedSections;
+    return activatedSectionsId;
 }

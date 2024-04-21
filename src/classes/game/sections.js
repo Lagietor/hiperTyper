@@ -19,6 +19,7 @@ function getSections() {
     return sections;
 }
 
+// Prepares word object and displays it on view
 function addWordToSection(sectionId, word, speed) {
     let splittedWord = splitWord(word);
     sections[sectionId - 1].word = splittedWord;
@@ -27,9 +28,11 @@ function addWordToSection(sectionId, word, speed) {
     displayWord(word, sectionId);
 }
 
-function removeWordsFromSection(sectionsId) {
+// Resets word config and removes word in sections from display
+function removeWordFromSections(sectionsId) {
     sectionsId.forEach(sectionId => {
         sections[sectionId - 1].word = [];
+        sections[sectionId - 1].isBusy = false;
         removeWord(sectionId);
     });
 }
