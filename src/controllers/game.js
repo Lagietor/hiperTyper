@@ -1,6 +1,6 @@
 $(document).ready(function() {
     lives = 3;
-    wave = 1;
+    timerSec = 0;
     score = 0;
     scoreCount = 0;
     combo = 1;
@@ -54,14 +54,10 @@ $(document).ready(function() {
 
             // Check if word is activated
             if (activeWordsSectionsId.length) {
-                playSound("./src/sound/wordActive1.mp3");
                 // HENTAI();
 
                 updateScoreCount(activeWordsSectionsId);
-
-                if (combo < 6) {
-                    combo++;
-                }
+                playSound("./src/sound/wordActive" + combo + ".mp3");
 
                 removeWordFromSections(activeWordsSectionsId);
             } else {
@@ -70,35 +66,63 @@ $(document).ready(function() {
         } else {
             // Logic of incorrect key...
             playSound("./src/sound/badKey.wav");
-            combo = 1;
             resetScoreCount();
+            combo = 1;
         }
     });
 
     function run() {
         console.log(allWords);
         console.log(sections);
-        // addWordToSection(1, "dupa", 1);
-        // addWordToSection(3, "test", 1);
-        // addWordToSection(4, "test", 1);
-        // addWordToSection(5, "testoo", 1);
+
+        timeCounter();
 
         setInterval(function() {
             randomWordGenerator();
         }, 1000);
-        // console.log(allWords);
-        // console.log(sections);
-        // Logic of the game...
     }
 
     function randomWordGenerator() {
         let randSectionId = Math.floor(Math.random() * (sections.length - 1 + 1)) + 1;
-        let randWordLength = Math.floor(Math.random() * (allWords.length));
-        let randWordIndex = Math.floor(Math.random() * (allWords[randWordLength].words.length));
+        let speed = 1;
 
-        if (!sections[randSectionId - 1].isBusy) {
-            addWordToSection(randSectionId, allWords[randWordLength].words[randWordIndex], 1);
+        if (timerSec < 30) {
+            let randWordLength = Math.floor(Math.random() * 3);
+            let randWordIndex = Math.floor(Math.random() * (allWords[randWordLength].words.length));
+    
+            if (!sections[randSectionId - 1].isBusy) {
+                addWordToSection(randSectionId, allWords[randWordLength].words[randWordIndex], speed);
+            }
+        } else {
+            // TODO: add algorithm scaling speed based on time and legth of word
+            let randWordLength = Math.floor(Math.random() * (allWords.length));
+            let randWordIndex = Math.floor(Math.random() * (allWords[randWordLength].words.length));
+
+            if (!sections[randSectionId - 1].isBusy) {
+                addWordToSection(randSectionId, allWords[randWordLength].words[randWordIndex], speed);
+            }
         }
+    }
+
+    function timeCounter() {
+        let seconds = 0;
+        let minutes = 0;
+        let timerElement = $('#timer');
+
+        setInterval(function() {
+            seconds++;
+            timerSec++;
+
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+
+            let formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
+            let formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+            timerElement.text(formattedMinutes + ":" + formattedSeconds);
+        }, 1000);
     }
 
     function HENTAI() {

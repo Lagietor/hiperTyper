@@ -4,6 +4,10 @@ function updateScoreCount(sectionsId) {
         scoreCount += combo * allWords[wordLength - 3].points;
     });
 
+    if (combo < 6) {
+        combo++;
+    }
+
     updateScoreCountDisplay();
     updateComboDisplay();
 }
@@ -17,16 +21,18 @@ function resetScoreCount() {
 }
 
 function updateScoreCountDisplay() {
-    console.log(scoreCount);
     $("#scoreCount").text("+" + scoreCount);
 }
 
 function removeScoreCountDisplay() {
     $("#scoreCount").text("");
+    $("#combo").removeClass("x" + combo);
 }
 
 function updateComboDisplay() {
     $("#combo").text("x" + combo);
+    $("#combo").addClass("x" + combo).removeClass("x" + (combo - 1));
+
 }
 
 function removeComboDisplay() {
