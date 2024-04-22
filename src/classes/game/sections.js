@@ -9,7 +9,7 @@ function getSections() {
     // speed - speed of how fast the word will go to the bottom
     for (let i = 0; i < sectionsNum; i++) {
         sections.push({
-            "sectionId": i + 1,
+            "id": i + 1,
             "isBusy": false,
             "word": [],
             "speed": 0,
@@ -29,10 +29,16 @@ function addWordToSection(sectionId, word, speed) {
 }
 
 // Resets word config and removes word in sections from display
-function removeWordFromSections(sectionsId) {
-    sectionsId.forEach(sectionId => {
-        sections[sectionId - 1].word = [];
-        sections[sectionId - 1].isBusy = false;
-        removeWord(sectionId);
+function removeWordFromSection(sectionId) {
+    sections[sectionId - 1].word = [];
+    sections[sectionId - 1].isBusy = false;
+    removeWord(sectionId);
+}
+
+function removeAllWordsFromSections() {
+    sections.forEach(section => {
+        section.word = [];
+        section.isBusy = false;
+        removeWord(section.id);
     });
 }

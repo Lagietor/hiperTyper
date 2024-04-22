@@ -24,26 +24,27 @@ body {
 }
 
 .enemy-word {
+    margin-top: 3vh;
     font-family: arcade;
     font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slideDown {
+    animation: slideDown 8s linear forwards;
 }
 
 .fixed-width-col {
     width: 12.5%;
     flex: 0 0 12.5%;
+    position: relative;
 }
 
 .active {
     color: orange;
 }
-
-@keyframes shake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(5deg); }
-    50% { transform: rotate(0eg); }
-    75% { transform: rotate(-5deg); }
-    100% { transform: rotate(0deg); }
-  }
 
 .x2 {
     color: #edd479;
@@ -73,3 +74,20 @@ body {
     animation: shake 0.2s infinite;
     font-size: 35px
 }
+
+@keyframes slideDown {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 71vh; /* punkt zakończenia animacji */
+    }
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0eg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }

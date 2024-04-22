@@ -7,17 +7,23 @@ $(document).ready(function() {
 
     allWords = [];
     sections = [];
+    wordGenerateInterval = '';
+    timerInterval = '';
+
+    hentaiMode = 0;
 
     // isReady checks if everything is loaded
     // before starting the game
     let isReady = false;
 
-    $.getScript("./src/classes/game/popupLetter.js");
-    $.getScript("./src/classes/game/letterDetection.js");
+    $.getScript("./src/classes/game/letters/popupLetter.js");
+    $.getScript("./src/classes/game/letters/letterDetection.js");
+    $.getScript("./src/classes/game/words/wordMovement.js");
+    $.getScript("./src/classes/game/words/wordGenerator.js");
     $.getScript("./src/classes/game/sound.js");
     $.getScript("./src/classes/game/score.js");
     $.getScript("./src/classes/game/sections.js");
-    $.getScript("./src/classes/game/words.js", function() {
+    $.getScript("./src/classes/game/words/words.js", function() {
         getAllWords(function(words) {
             allWords = words;
             sections = getSections();
@@ -46,7 +52,7 @@ $(document).ready(function() {
         // Checking if key pressed matches any inactive first letters
         if (correctSections.length) {
             // Logic of correct key...
-            let correctSectionsId = correctSections.map(correctSection => correctSection.sectionId);
+            let correctSectionsId = correctSections.map(correctSection => correctSection.id);
             activateLetters(correctSectionsId);
 
             // Get sections with activated words if exists
@@ -54,12 +60,17 @@ $(document).ready(function() {
 
             // Check if word is activated
             if (activeWordsSectionsId.length) {
-                // HENTAI();
+                if (hentaiMode) {
+                    HENTAI();
+                }
 
                 updateScoreCount(activeWordsSectionsId);
                 playSound("./src/sound/wordActive" + combo + ".mp3");
 
-                removeWordFromSections(activeWordsSectionsId);
+                activeWordsSectionsId.forEach(sectionId => {
+                    removeWordFromSection(sectionId);
+                    resetAnimaton(sectionId);
+                });
             } else {
                 playSound("./src/sound/correctKey.mp3");
             }
@@ -72,36 +83,34 @@ $(document).ready(function() {
     });
 
     function run() {
-        console.log(allWords);
-        console.log(sections);
-
+        // console.log(allWords);
+        // console.log(sections);
         timeCounter();
 
-        setInterval(function() {
-            randomWordGenerator();
-        }, 1000);
-    }
-
-    function randomWordGenerator() {
-        let randSectionId = Math.floor(Math.random() * (sections.length - 1 + 1)) + 1;
-        let speed = 1;
-
-        if (timerSec < 30) {
-            let randWordLength = Math.floor(Math.random() * 3);
-            let randWordIndex = Math.floor(Math.random() * (allWords[randWordLength].words.length));
-    
-            if (!sections[randSectionId - 1].isBusy) {
-                addWordToSection(randSectionId, allWords[randWordLength].words[randWordIndex], speed);
-            }
+        if (hentaiMode) {
+            HENTAIULTIMATE();
         } else {
-            // TODO: add algorithm scaling speed based on time and legth of word
-            let randWordLength = Math.floor(Math.random() * (allWords.length));
-            let randWordIndex = Math.floor(Math.random() * (allWords[randWordLength].words.length));
-
-            if (!sections[randSectionId - 1].isBusy) {
-                addWordToSection(randSectionId, allWords[randWordLength].words[randWordIndex], speed);
-            }
+            // playBackgroundMusic();
         }
+
+        generateWords();
+        isAnimationFinished(function(sectionId) {
+            removeWordFromSection(sectionId);
+            resetAnimaton(sectionId);
+            resetScoreCount();
+            lives--;
+            $("#lives").text(lives);
+    
+            if (lives == 0) {
+                resetAllAnimations();
+                removeAllWordsFromSections();
+                clearInterval(wordGenerateInterval);
+                clearInterval(timerInterval);
+                playSound("./src/sound/gameOver.mp3");
+            } else {
+                playSound("./src/sound/injury.mp3");
+            }
+        })
     }
 
     function timeCounter() {
@@ -109,7 +118,7 @@ $(document).ready(function() {
         let minutes = 0;
         let timerElement = $('#timer');
 
-        setInterval(function() {
+        timerInterval = setInterval(function() {
             seconds++;
             timerSec++;
 
@@ -123,10 +132,5 @@ $(document).ready(function() {
 
             timerElement.text(formattedMinutes + ":" + formattedSeconds);
         }, 1000);
-    }
-
-    function HENTAI() {
-        let hentaiNr = Math.floor(Math.random() * (8 - 1 + 1)) + 1;
-        playSound("./src/sound/hentai" + hentaiNr + ".mp3");
     }
 })
