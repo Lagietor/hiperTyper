@@ -10,6 +10,12 @@ function isAnimationFinished(callback) {
     });
 }
 
+function removeAnimationListeners() {
+    sections.forEach(section => {
+        $("#st" + section.id).off("animationend");
+    });
+}
+
 function resetAnimaton(sectionId) {
     $("#st" + sectionId).removeClass("slideDown");
 }

@@ -20,6 +20,17 @@ function resetScoreCount() {
     removeComboDisplay();
 }
 
+function updateHighscore(score) {
+    let highscore = (window.localStorage.getItem("highscore")) ? window.localStorage.getItem("highscore") : 0;
+
+    highscore = parseInt(highscore);
+    score = parseInt(score);
+
+    if (score >= highscore) {
+        window.localStorage.setItem("highscore", score);
+    }
+}
+
 function updateScoreCountDisplay() {
     $("#scoreCount").text("+" + scoreCount);
 }

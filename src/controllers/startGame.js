@@ -7,7 +7,7 @@ $(document).ready(function() {
     // Remove to see menu
     gameRunning = skipMenu(gameRunning);
 
-    textAnimation = animateText(interval);
+    textAnimation = animateText(interval, "menuStart");
 
     // Check if the key was pressed
     $(document).keydown(function() {
@@ -28,9 +28,9 @@ $(document).ready(function() {
 });
 
 // Animation of appearing and disappearing text
-function animateText(interval) {
+function animateText(interval, textId) {
     return setInterval(function() {
-        $("#menuStart").animate({opacity: 0}, interval).animate({opacity: 1}, interval);
+        $("#" + textId).animate({opacity: 0}, interval).animate({opacity: 1}, interval);
     }, interval * 2);
 }
 
@@ -61,6 +61,9 @@ function skipMenu(gameRunning) {
     $('#game').load('./src/view/game.html', function() {
         $.getScript("./src/controllers/game.js");
     });
+    // $('#gameOver').load('./src/view/gameOver.html', function() {
+    //     $.getScript("./src/controllers/gameOver.js");
+    // });
 
     return gameRunning;
 }

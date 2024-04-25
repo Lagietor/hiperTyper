@@ -9,6 +9,7 @@ $(document).ready(function() {
     sections = [];
     wordGenerateInterval = '';
     timerInterval = '';
+    isBackgroundPlaying = false;
 
     hentaiMode = 0;
 
@@ -81,56 +82,78 @@ $(document).ready(function() {
             combo = 1;
         }
     });
+})
 
-    function run() {
-        // console.log(allWords);
-        // console.log(sections);
-        timeCounter();
+function run(isRetry = false) {
+    timeCounter();
 
+    if (!isBackgroundPlaying) {
+        isBackgroundPlaying = true;
         if (hentaiMode) {
             HENTAIULTIMATE();
         } else {
-            // playBackgroundMusic();
+            playBackgroundMusic();
+        }
+    }
+
+    generateWords();
+
+    isAnimationFinished(function(sectionId) {
+        removeWordFromSection(sectionId);
+        resetAnimaton(sectionId);
+        resetScoreCount();
+        lives--;
+        $("#lives").text(lives);
+
+        if (lives == 0) {
+            resetAllAnimations();
+            removeAllWordsFromSections();
+            removeAnimationListeners();
+            clearInterval(wordGenerateInterval);
+            clearInterval(timerInterval);
+            playSound("./src/sound/gameOver.mp3");
+            hideGameElements();
+
+            if (isRetry) {
+                showGameOverElements();
+
+                gameOverProcess();
+            } else {
+                $('#gameOver').load('./src/view/gameOver.html', function() {
+                    $.getScript("./src/controllers/gameOver.js");
+                });
+            }
+        } else {
+            playSound("./src/sound/injury.mp3");
+        }
+    })
+}
+
+function timeCounter() {
+    let seconds = 0;
+    let minutes = 0;
+    let timerElement = $('#timer');
+
+    timerInterval = setInterval(function() {
+        seconds++;
+        timerSec++;
+
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
         }
 
-        generateWords();
-        isAnimationFinished(function(sectionId) {
-            removeWordFromSection(sectionId);
-            resetAnimaton(sectionId);
-            resetScoreCount();
-            lives--;
-            $("#lives").text(lives);
-    
-            if (lives == 0) {
-                resetAllAnimations();
-                removeAllWordsFromSections();
-                clearInterval(wordGenerateInterval);
-                clearInterval(timerInterval);
-                playSound("./src/sound/gameOver.mp3");
-            } else {
-                playSound("./src/sound/injury.mp3");
-            }
-        })
-    }
+        let formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
+        let formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
 
-    function timeCounter() {
-        let seconds = 0;
-        let minutes = 0;
-        let timerElement = $('#timer');
+        timerElement.text(formattedMinutes + ":" + formattedSeconds);
+    }, 1000);
+}
 
-        timerInterval = setInterval(function() {
-            seconds++;
-            timerSec++;
+function hideGameElements() {
+    $("#game").hide();
+}
 
-            if (seconds >= 60) {
-                seconds = 0;
-                minutes++;
-            }
-
-            let formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
-            let formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
-
-            timerElement.text(formattedMinutes + ":" + formattedSeconds);
-        }, 1000);
-    }
-})
+function showGameOverElements() {
+    $("#gameOver").show();
+}
