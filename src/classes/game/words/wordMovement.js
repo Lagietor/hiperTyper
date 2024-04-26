@@ -1,4 +1,6 @@
-function moveDownAnimation(sectionId) {
+function moveDownAnimation(sectionId, speed) {
+    speed = speed + "s";
+    $("#st" + sectionId).css("--duration", speed);
     $("#st" + sectionId).addClass("slideDown");
 }
 

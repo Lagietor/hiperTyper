@@ -1,10 +1,14 @@
-body {
-    background-color: black;
+:root {
+    --duration: 5s;
 }
 
 @font-face {
     font-family: arcade;
     src: url("../assets/CosmicAlien-V4Ax.ttf") format('truetype');
+}
+
+body {
+    background-color: black;
 }
 
 .text-header {
@@ -33,7 +37,7 @@ body {
 }
 
 .slideDown {
-    animation: slideDown 8s linear forwards;
+    animation: slideDown var(--duration) linear forwards;
 }
 
 .fixed-width-col {
@@ -80,7 +84,7 @@ body {
         top: 0;
     }
     100% {
-        top: 71vh; /* punkt zakończenia animacji */
+        top: 71vh;
     }
 }
 

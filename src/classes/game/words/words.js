@@ -39,12 +39,6 @@ function assignAttrToWords(words) {
         // Assigning new fields
         wordGroup["length"] = length;
         wordGroup["points"] = length * 10;
-        
-        // Depending on length of the word
-        // assign from which wave this word will start appearing
-        if (length <= 4) wordGroup["wave"] = 1;
-        if (length > 4 && length <= 6) wordGroup["wave"] = 2;
-        if (length > 6 && length <= 14) wordGroup["wave"] = 3;
     });
 }
 

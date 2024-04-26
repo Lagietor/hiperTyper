@@ -14,11 +14,13 @@ function gameOverProcess() {
 
     let finalTime = $("#timer").text();
     let finalScore = $("#score").text();
+    let finalSpeed = $("#speed").text();
 
     updateHighscore(finalScore);
 
     $("#finalTime").text(finalTime);
     $("#finalScore").text(finalScore);
+    $("#finalSpeed").text(finalSpeed);
     $("#highscore").text(window.localStorage.getItem("highscore"));
 }
 
@@ -46,10 +48,12 @@ function resetGame() {
     scoreCount = 0;
     score = 0;
     combo = 1;
+    speed = 1;
     wordGenerateInterval = '';
     timerInterval = '';
 
     $("#timer").text("00:00");
     $("#score").text("0");
     $("#lives").text(lives);
+    $("#speed").text(speed);
 }

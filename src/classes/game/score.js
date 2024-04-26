@@ -1,3 +1,5 @@
+let lastLifeIncreaseScore = 0;
+
 function updateScoreCount(sectionsId) {
     sectionsId.forEach(sectionId => {
         wordLength = sections[sectionId - 1].word.length;
@@ -10,6 +12,7 @@ function updateScoreCount(sectionsId) {
 
     updateScoreCountDisplay();
     updateComboDisplay();
+    updateLives();
 }
 
 function resetScoreCount() {
@@ -28,6 +31,18 @@ function updateHighscore(score) {
 
     if (score >= highscore) {
         window.localStorage.setItem("highscore", score);
+    }
+}
+
+function updateLives() {
+    const totalScore = score + scoreCount;
+    const lifeIncreaseThreshold = Math.floor(totalScore / 10000) * 10000;
+
+    if (totalScore >= 10000 && lifeIncreaseThreshold > lastLifeIncreaseScore) {
+        lives += Math.floor((lifeIncreaseThreshold - lastLifeIncreaseScore) / 10000);
+        lastLifeIncreaseScore = lifeIncreaseThreshold;
+        $("#lives").text(lives);
+        playSound("./src/sound/liveUp.wav");
     }
 }
 

@@ -4,6 +4,7 @@ $(document).ready(function() {
     score = 0;
     scoreCount = 0;
     combo = 1;
+    speed = 1;
 
     allWords = [];
     sections = [];
